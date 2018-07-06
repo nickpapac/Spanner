@@ -55,6 +55,14 @@ if __name__ == "__main__":
 
     run_test(validate_network_cmd_on())
 
-    #time.sleep(2)
+    time.sleep(2)
 
-    #run_test(validate_network_cmd_off())
+    run_test(validate_network_cmd_off())
+      
+    time.sleep(2)
+        
+    run_test(validate_network_cmd_on())
+
+    time.sleep(2)
+
+    run_test(validate_network_cmd_off())
