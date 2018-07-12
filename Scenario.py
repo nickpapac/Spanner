@@ -11,7 +11,7 @@ from Spanner import Spanner
 from Testboard import Testboard
 
 
-TESTBOARD_ID = "340040000f51353532343635"
+TESTBOARD_ID = "200023001347343438323536"
 testboard = Testboard(TESTBOARD_ID)
 
 # Our device's 1st Output Pin will be connected to the Testboard's D7, making it our Input Pin 1
