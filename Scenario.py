@@ -1,5 +1,5 @@
-from Spanner import Spanner
 from Testboard import Testboard
+from Spanner import Spanner
 import Device 
 import time
 
