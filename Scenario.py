@@ -23,7 +23,7 @@ def validate_digital_input_high():
     # check PIN state
     value = testboard.digitalRead(INPUT_PIN_1)
     print(value)
-    spanner.assertTrue(value);
+    spanner.assertTrue(value, 'allow_failure:false');
 
 def validate_digital_input_low():
     # check PIN state
