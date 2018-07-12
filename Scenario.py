@@ -1,30 +1,40 @@
-# This example will set one of our Testboard's outputs, first to HIGH, and then to LOW. 
+# This example will test two of our Product's outputs, to make sure that one is high, and the other one is low. 
 #
-# The goal of this example is to show you how you can drive a digital input on your device from the Testboard. 
+# The goal of this example is to show you how you can read a simple digital output from your device, and how you can assert boolean values.
 #
-# In our particular example, we are only setting value and not asserting anything. Of course this would never be a real world example, it's only for educational purposes
+# In our particular example, we expect the pin we're connecting to our Testboard's D5 to be always LOW, and the pin we're connecting to our Testboard's D7 to be always HIGH. Of course this would never be a real world example, it's only for educational purposes
+#
+# If you want to replicate this setup, you can use our Particle Photon Testboard and connect the D5 pin to GND, and the D7 pin to 3V3.
 
 import time
 from Spanner import Spanner
 from Testboard import Testboard
 
-TESTBOARD_ID = "200023001347343438323536"
+
+TESTBOARD_ID = "340040000f51353532343635"
 testboard = Testboard(TESTBOARD_ID)
 
-# Our Product's Input will be connected the Testboard's Pin D3, making it our Output Pin
-OUTPUT_PIN = "D7"
+# Our device's 1st Output Pin will be connected to the Testboard's D7, making it our Input Pin 1
+INPUT_PIN_1 = "D7"
+# Our device's 2nd Output Pin will be connected to the Testboard's D5, making it our Input Pin 2
+INPUT_PIN_2 = "D5"
 
-def toggle_digital_output():
-    # set PIN state
-    value = testboard.digitalWrite(OUTPUT_PIN, 'HIGH')
+def validate_digital_input_high():
+    # check PIN state
+    value = testboard.digitalRead(INPUT_PIN_1)
     print(value)
-    spanner.assertTrue(value)
+    spanner.assertTrue(value);
+
+def validate_digital_input_low():
+    # check PIN state
+    value = testboard.digitalRead(INPUT_PIN_2)
+    print(value)
+    spanner.assertFalse(value);
+
+if __name__ == "__main__":
+
+    validate_digital_input_high()
 
     time.sleep(2)
 
-    value = testboard.digitalWrite(OUTPUT_PIN, 'LOW')
-    print(value)
-    spanner.assertTrue(value)
-
-if __name__ == "__main__":
-    toggle_digital_output()
+    validate_digital_input_low()
