@@ -22,14 +22,14 @@ INPUT_PIN_2 = "D5"
 def validate_digital_input_high():
     # check PIN state
     value = testboard.digitalRead(INPUT_PIN_1)
-
-    spanner.assertTrue(value, 'allow_failure:false');
+    print(value)
+    spanner.assertTrue(value);
 
 def validate_digital_input_low():
     # check PIN state
     value = testboard.digitalRead(INPUT_PIN_2)
-
-    spanner.assertFalse(value);
+    print(value)
+    spanner.assertFalse(value, 'allow:falure:true');
 
 if __name__ == "__main__":
 
