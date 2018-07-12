@@ -16,13 +16,13 @@ OUTPUT_PIN = "D3"
 
 def toggle_digital_output():
     # set PIN state
-    value = testboard.digitalWrite(OUTPUT_PIN, HIGH)
+    value = testboard.digitalWrite(OUTPUT_PIN, 'HIGH')
     print(value)
     spanner.assertTrue(value)
 
     time.sleep(2)
 
-    value = testboard.digitalWrite(OUTPUT_PIN, LOW)
+    value = testboard.digitalWrite(OUTPUT_PIN, 'LOW')
     print(value)
     spanner.assertFalse(value)
 
