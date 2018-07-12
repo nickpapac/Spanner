@@ -1,33 +1,28 @@
-from Testboard import Testboard
-from Spanner import Spanner
-import Device 
-import time
+# This example will set one of our Testboard's outputs, first to HIGH, and then to LOW. 
+#
+# The goal of this example is to show you how you can drive a digital input on your device from the Testboard. 
+#
+# In our particular example, we are only setting value and not asserting anything. Of course this would never be a real world example, it's only for educational purposes
 
-DEVICE_ID = "2c0019001347343438323536"
-DEVICE_TOKEN = "198caec25a8b0ab77977727cb0699f48b4b0ba37"
-device = Device.Particle(DEVICE_ID, DEVICE_TOKEN)
+import time
+from Spanner import Spanner
+from Testboard import Testboard
 
 TESTBOARD_ID = "2c0019001347343438323536"
 testboard = Testboard(TESTBOARD_ID)
 
-# Our device's Output Pin will be connected to the Testboard's D7, making it our Input Pin
-INPUT_PIN = "D7"
+# Our Product's Input will be connected the Testboard's Pin D3, making it our Output Pin
+OUTPUT_PIN = "D3"
 
-def test_switch_on_network_cmd():
-    # send network command to our device
-  # '3'  device.ota_local("/path/to/test.bin") -> valid only for CLI 
-  # '2'  device.ota(test.bin) --> "taken from spanner user profile"
-  # '1'  device.ota(auto) -> taken from BF
-    
-    # device.ota(auto) -> taken from BF
-    # time.sleep(2)
+def toggle_digital_output():
+    # set PIN state
+    value = testboard.digitalWrite(OUTPUT_PIN, HIGH)
+    spanner.assertTrue(value)
 
-    # check PIN state
-    value = testboard.digitalRead(INPUT_PIN)
-    print(value)
-    res = spanner.assertTrue(value)
-    print(res)
-    
+    time.sleep(2)
+
+    value = testboard.digitalWrite(OUTPUT_PIN, LOW)
+    spanner.assertFalse(value)
+
 if __name__ == "__main__":
-    test_switch_on_network_cmd()
-    print('end')
+    toggle_digital_output()
