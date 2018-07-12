@@ -1,68 +1,33 @@
+from Spanner import Spanner
 from Testboard import Testboard
-from Ifttt import Ifttt
+import Device 
 import time
 
-# define variables
-BINARY_FROM = "SPANNER"
+DEVICE_ID = "340040000f51353532343635"
+DEVICE_TOKEN = "93ce5e437b17b9e8d6af19c4d453cb8208b7fc5b"
+device = Device.Particle(DEVICE_ID, DEVICE_TOKEN)
+
 TESTBOARD_ID = "340040000f51353532343635"
-IFTTT_ACCESS_TOKEN = "54c8df8cb04da38a34e26ec6da046abf92182de4"
-
 testboard = Testboard(TESTBOARD_ID)
-ifttt = Ifttt(IFTTT_ACCESS_TOKEN)
 
-# D7 -> Relay PIN
-RELAY_PIN = "D7"
+spanner = Spanner()
 
-# Cloud Functionality
-def validate_network_cmd_on():
-    ifttt.buttonOn()
+# Our device's Output Pin will be connected to the Testboard's D7, making it our Input Pin
+INPUT_PIN = "D7"
 
-    testboard.digitalWrite(RELAY_PIN, 'HIGH')
-    time.sleep(2)
-
-    value = testboard.digitalRead(RELAY_PIN)
-    if testboard.spanner_assertTrue(value) == 1:
-        return 0 #Success
-    else:
-        return 1 #Failure
+def test_switch_on_network_cmd():
+    # send network command to our device
+  # '3'  device.ota_local("/path/to/test.bin") -> valid only for CLI 
+  # '2'  device.ota(test.bin) --> "taken from spanner user profile"
+  # '1'  device.ota(auto) -> taken from BF
+    
+    # device.ota(auto) -> taken from BF
+    # time.sleep(2)
 
     # check PIN state
-    value = testboard.digitalRead(RELAY_PIN)
-    if (testboard.spanner_assertTrue(value) == 1):
-        return 0 # Success
-    else:
-        return 1 # Failure
-
-# Cloud Functionality
-def validate_network_cmd_off():
-    ifttt.buttonOff()
-
-    testboard.digitalWrite(RELAY_PIN, 'LOW')
-    time.sleep(2)
-
-    value = testboard.digitalRead(RELAY_PIN)
-    if (testboard.spanner_assertTrue(value) == 0):
-        return 0
-
-    # check PIN state
-    value = testboard.digitalRead(RELAY_PIN)
-    if (testboard.spanner_assertTrue(value) == 0):
-        return 0 # Success
-    else:
-        return 1 # Failure
+    value = testboard.digitalRead(INPUT_PIN)
+    spanner.assertTrue(value)
 
 if __name__ == "__main__":
-
-    run_test(validate_network_cmd_on())
-
-    time.sleep(2)
-
-    run_test(validate_network_cmd_off())
-      
-    time.sleep(2)
-        
-    run_test(validate_network_cmd_on())
-
-    time.sleep(2)
-
-    run_test(validate_network_cmd_off())
+    test_switch_on_network_cmd()
+    print('end')
