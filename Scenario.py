@@ -20,7 +20,7 @@ def toggle_digital_output():
     print(value)
     spanner.assertTrue(value)
 
-    time.sleep(4)
+    time.sleep(2)
 
     value = testboard.digitalWrite(OUTPUT_PIN, 'LOW')
     print(value)
