@@ -27,7 +27,7 @@ def test_switch_on_network_cmd():
     # check PIN state
     value = testboard.digitalRead(INPUT_PIN)
     print(value)
-    #spanner.assertTrue(value)
+    spanner.assertTrue(value)
 
 if __name__ == "__main__":
     test_switch_on_network_cmd()
