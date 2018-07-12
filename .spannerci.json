@@ -5,6 +5,7 @@
   "code_quality": false,
   "build_binary": false,
   "deploy": false,
-  "tests": false
+  "tests": false,
+  "script": "Scenario.py"
 }
 
