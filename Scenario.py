@@ -10,8 +10,6 @@ device = Device.Particle(DEVICE_ID, DEVICE_TOKEN)
 TESTBOARD_ID = "2c0019001347343438323536"
 testboard = Testboard(TESTBOARD_ID)
 
-spanner = Spanner(TESTBOARD_ID)
-
 # Our device's Output Pin will be connected to the Testboard's D7, making it our Input Pin
 INPUT_PIN = "D7"
 
