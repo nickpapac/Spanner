@@ -39,7 +39,7 @@ def validate_network_cmd_off():
 
 if __name__ == "__main__":
 
-    run_test(validate_network_cmd_on())
+    validate_network_cmd_on()
 
     #time.sleep(2)
 
