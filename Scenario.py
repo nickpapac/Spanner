@@ -32,10 +32,10 @@ def validate_digital_input_low():
     spanner.assertFalse(value, 'allow:falure:true');
 
 if __name__ == "__main__":
-
+    print('All tests started')
+    
     validate_digital_input_high()
 
     time.sleep(2)
 
     validate_digital_input_low()
-    print('Test finished')
