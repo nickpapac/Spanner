@@ -32,15 +32,12 @@ def validate_network_cmd_off():
 
     # check PIN state
     value = testboard.digitalRead(RELAY_PIN)
-    if (testboard.spanner_assertTrue(value) == 0):
-        return 0 # Success
-    else:
-        return 1 # Failure
+    spanner.assertTrue(value)
 
 if __name__ == "__main__":
 
     validate_network_cmd_on()
 
-    #time.sleep(2)
+    time.sleep(2)
 
-    #run_test(validate_network_cmd_off())
+    validate_network_cmd_off()
