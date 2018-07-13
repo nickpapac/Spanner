@@ -38,3 +38,4 @@ if __name__ == "__main__":
     time.sleep(2)
 
     validate_digital_input_low()
+    print('Test finished')
