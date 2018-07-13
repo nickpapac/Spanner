@@ -1,41 +1,46 @@
-# This example will test two of our Product's outputs, to make sure that one is high, and the other one is low. 
-#
-# The goal of this example is to show you how you can read a simple digital output from your device, and how you can assert boolean values.
-#
-# In our particular example, we expect the pin we're connecting to our Testboard's D5 to be always LOW, and the pin we're connecting to our Testboard's D7 to be always HIGH. Of course this would never be a real world example, it's only for educational purposes
-#
-# If you want to replicate this setup, you can use our Particle Photon Testboard and connect the D5 pin to GND, and the D7 pin to 3V3.
-
-import time
-from Spanner import Spanner
 from Testboard import Testboard
+from Ifttt import Ifttt
+from Spanner import Spanner
+import time
 
-
+#BINARY_FROM = "SPANNER"
 TESTBOARD_ID = "2c0019001347343438323536"
+IFTTT_ACCESS_TOKEN = "54c8df8cb04da38a34e26ec6da046abf92182de4"
+
 testboard = Testboard(TESTBOARD_ID)
+ifttt = Ifttt(IFTTT_ACCESS_TOKEN)
 
-# Our device's 1st Output Pin will be connected to the Testboard's D7, making it our Input Pin 1
-INPUT_PIN_1 = "D7"
-# Our device's 2nd Output Pin will be connected to the Testboard's D5, making it our Input Pin 2
-INPUT_PIN_2 = "D5"
+# D7 -> Relay PIN
+RELAY_PIN = "D7"
 
-def validate_digital_input_high():
-    # check PIN state
-    value = testboard.digitalRead(INPUT_PIN_1)
-    print(value)
-    spanner.assertTrue(value);
+# Cloud Functionality
+def validate_network_cmd_on():
+    ifttt.buttonOn()
 
-def validate_digital_input_low():
-    # check PIN state
-    value = testboard.digitalRead(INPUT_PIN_2)
-    print(value)
-    spanner.assertFalse(value, 'allow:falure:true');
-
-if __name__ == "__main__":
-    print('All tests started')
-    
-    validate_digital_input_high()
-
+    testboard.digitalWrite(RELAY_PIN, 'HIGH')
     time.sleep(2)
 
-    validate_digital_input_low()
+    value = testboard.digitalRead(RELAY_PIN)
+    spanner.assertTrue(value)
+
+# Cloud Functionality
+def validate_network_cmd_off():
+    ifttt.buttonOff()
+
+    testboard.digitalWrite(RELAY_PIN, 'LOW')
+    time.sleep(2)
+
+    # check PIN state
+    value = testboard.digitalRead(RELAY_PIN)
+    if (testboard.spanner_assertTrue(value) == 0):
+        return 0 # Success
+    else:
+        return 1 # Failure
+
+if __name__ == "__main__":
+
+    run_test(validate_network_cmd_on())
+
+    #time.sleep(2)
+
+    #run_test(validate_network_cmd_off())
